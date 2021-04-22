@@ -11,6 +11,7 @@ from datetime import datetime
 from google.cloud import firestore
 import pandas as pd
 import pytz
+import collections
 
 # Authenticate to Firestore with the JSON account key.
 db = firestore.Client.from_service_account_json("firestorekey.json")
