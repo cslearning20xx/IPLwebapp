@@ -53,4 +53,19 @@ choices = pd.DataFrame(choicelist)
 if choices.shape[0] > 0:
   st.write(choices)
                                                  
-  
+
+st.write('Hold on, generating a summary')
+
+summary = []
+for player in players:
+  tempdoc_ref = db.collection("users").document(player)
+  tempdoc = tempdoc_ref.get()
+
+  vals = list(tempdoc.to_dict().values())  
+  tempdict = {"Player": player }
+  tempdict.update(collections.Counter(vals))
+  summary.append( tempdict )
+
+pd.set_option("display.precision", 0)
+summary = pd.DataFrame(summary)
+st.write(summary)
