@@ -25,11 +25,10 @@ dftemp = df[df["Time1"] > currtime ]
 row = dftemp.iloc[0]
 print(row['Team1'])
 
+st.write( "Welcome! Please submit you response for ", row['Team1'], " v/s", row['Team2'], " match at ", row['Time'])
+
 players = ( 'Bot', 'Chetan', 'Rajat', 'Sethu', 'Shivam', 'Havish', 'Utsav', 'Kshitiz' , 'Rajesh' )
 user = st.selectbox( 'Please chose your login name', players )
-
-st.write('Welcome ', user, '  !' )
-st.write( "Please submit you response for ", row['Team1'], " v/s", row['Team2'], " at ", row['Time'])
 
 team_selected = st.selectbox( 'Please chose your team', ( 'None', row['Team1'], row['Team2'] ))                                                  
 
@@ -40,12 +39,15 @@ if submit:
   doc_ref.update( {row['MatchId']: team_selected } )
   st.write('Your response has been submitted, good luck!')
 
-# choicedict = {}
-# for player in players:
-#   tempdoc_ref = db.collection("users").document(player)
-#   tempdoc = doc_ref.get()
-#   choicedict.update(tempdoc.id, tempdoc.to_dict()[row['MatchId']])
+choicedict = {}
+for player in players:
+  tempdoc_ref = db.collection("users").document(player)
+  tempdoc = doc_ref.get()
+  try:
+    choicedict.update( player, tempdoc.to_dict()[row['MatchId']])
+  except:
+    print("ignore error")
                                                         
-# st.write(choicedict)
+st.write(choicedict)
                                                  
   
