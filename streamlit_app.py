@@ -15,28 +15,37 @@ import pytz
 # Authenticate to Firestore with the JSON account key.
 db = firestore.Client.from_service_account_json("firestorekey.json")
 
-user = st.selectbox( 'Please chose your login name', ( 'Bot', 'Chetan', 'Rajat', 'Sethu', 'Shivam', 'Havish', 'Utsav', 'Kshitiz' , 'Rajesh' ))
-st.write('Welcome ', user, '  !')
-
 tz_India = pytz.timezone('Asia/Calcutta') 
 currtime = datetime.now(tz_India)
-st.write("Current time: ", currtime.strftime("%H:%M:%S"))
 
+df = pd.read_csv('IPLdata.csv', parse_dates= ['Time'])
+s = pd.to_datetime(df['Time'])
+df['Time1'] = s.dt.tz_localize('Asia/Calcutta')
+dftemp = df[df["Time1"] > currtime ]
+row = dftemp.iloc[0]
+print(row['Team1'])
 
-df = pd.read_csv('IPLdata.csv')
-st.write(df.head())
+players = ( 'Bot', 'Chetan', 'Rajat', 'Sethu', 'Shivam', 'Havish', 'Utsav', 'Kshitiz' , 'Rajesh' )
+user = st.selectbox( 'Please chose your login name', players )
 
-# Create a reference to the Google post.
+st.write('Welcome ', user, '  !' )
+st.write( "Please submit you response for ", row['Team1], " v/s", row['Team2'], " at ", row['Time'])
+
+team_selected = st.selectbox( 'Please chose your team', ( 'None', row['Team1'], row['Team2'] ))                                                  
+
 doc_ref = db.collection("users").document(user)
+submit = st.button('Submit Response')
 
-submit = st.button('Submit Responde')
-if submit:
-  # Then get the data at that reference.
-  doc = doc_ref.get()
-
-  # Let's see what we got!
-  st.write("The id is: ", doc.id)
-  st.write("The contents are: ", doc.to_dict())
-  
+if submit: 
+  doc_ref.set( {row['MatchId'], team_selected } )
   st.write('Your response has been submitted, good luck!')
+
+choicedict = {}
+for player in players:
+  tempdoc_ref = db.collection("users").document(player)
+  tempdoc = doc_ref.get()
+  choicedict.update(tempdoc.id, tempdoc.to_dict()[row['MatchId']])
+                                                        
+st.write(choicedict)
+                                                 
   
