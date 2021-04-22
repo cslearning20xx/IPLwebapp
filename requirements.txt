@@ -3,4 +3,3 @@ google-cloud-firestore
 datetime
 pytz
 pandas
-
