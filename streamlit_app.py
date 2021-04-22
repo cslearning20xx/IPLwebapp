@@ -24,7 +24,7 @@ st.write("Current time: ", currtime.strftime("%H:%M:%S"))
 
 
 df = pd.read_csv('IPLdata.csv')
-print(df.head())
+st.write(df.head())
 
 # Create a reference to the Google post.
 doc_ref = db.collection("users").document("Chetan")
