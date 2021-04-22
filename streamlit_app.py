@@ -50,7 +50,7 @@ for player in players:
     print("ignore error")
               
 choices = pd.DataFrame(choicelist)
-if len(choices.shape[0]) > 0:
+if choices.shape[0] > 0:
   st.write(choices)
                                                  
   
