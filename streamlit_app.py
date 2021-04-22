@@ -7,13 +7,22 @@ Created on Thu Apr 22 08:41:28 2021
 
 
 import streamlit as st
+from datetime import datetime
 from google.cloud import firestore
 
 # Authenticate to Firestore with the JSON account key.
 db = firestore.Client.from_service_account_json("firestorekey.json")
 
-option = st.selectbox( 'Please chose your login name', ( 'Chetan', 'Rajat'))
-st.write('Welcome ', option, '  !')
+user = st.selectbox( 'Please chose your login name', ( 'Bot', 'Chetan', 'Rajat', 'Sethu', 'Shivam', 'Havish', 'Utsav', 'Kshitiz' , 'Rajesh' ))
+st.write('Welcome ', user, '  !')
+
+
+from datetime import datetime
+import pytz
+
+tz_India = pytz.timezone('Asia/Calcutta') 
+currtime = datetime.now(tz_India)
+print("Current time:", currtime.strftime("%H:%M:%S"))
 
 # Create a reference to the Google post.
 doc_ref = db.collection("users").document("Chetan")
