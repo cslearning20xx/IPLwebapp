@@ -44,10 +44,11 @@ for player in players:
   tempdoc_ref = db.collection("users").document(player)
   tempdoc = doc_ref.get()
   try:
-    choicedict.update( player, tempdoc.to_dict()[row['MatchId']])
+    choicedict.update( {player, tempdoc.to_dict()[row['MatchId']]})
   except:
     print("ignore error")
                                                         
-st.write(choicedict)
+if len(choicedict) > 0:
+  st.write(choicedict)
                                                  
   
