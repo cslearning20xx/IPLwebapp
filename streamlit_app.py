@@ -26,17 +26,17 @@ st.write("Current time: ", currtime.strftime("%H:%M:%S"))
 df = pd.read_csv('IPLdata.csv')
 st.write(df.head())
 
-
-submit = st.button('submit new letters')
-if submit:
-  st.write('Submitted')
-  
 # Create a reference to the Google post.
-doc_ref = db.collection("users").document("Chetan")
+doc_ref = db.collection("users").document(user)
 
-# Then get the data at that reference.
-doc = doc_ref.get()
+submit = st.button('Submit Responde')
+if submit:
+  # Then get the data at that reference.
+  doc = doc_ref.get()
 
-# Let's see what we got!
-st.write("The id is: ", doc.id)
-st.write("The contents are: ", doc.to_dict())
+  # Let's see what we got!
+  st.write("The id is: ", doc.id)
+  st.write("The contents are: ", doc.to_dict())
+  
+  st.write('Your response has been submitted, good luck!')
+  
