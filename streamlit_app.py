@@ -26,6 +26,11 @@ st.write("Current time: ", currtime.strftime("%H:%M:%S"))
 df = pd.read_csv('IPLdata.csv')
 st.write(df.head())
 
+
+submit = st.button('submit new letters')
+if submit:
+  st.write('Submitted')
+  
 # Create a reference to the Google post.
 doc_ref = db.collection("users").document("Chetan")
 
