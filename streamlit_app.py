@@ -11,7 +11,6 @@ from datetime import datetime
 from google.cloud import firestore
 import pandas as pd
 import pytz
-import collections
 
 # Authenticate to Firestore with the JSON account key.
 db = firestore.Client.from_service_account_json("firestorekey.json")
@@ -64,7 +63,11 @@ for player in players:
 
   vals = list(tempdoc.to_dict().values())  
   tempdict = {"Player": player }
-  tempdict.update(collections.Counter(vals))
+  freq = {}
+  for items in vals:
+    freq[items] = vals.count(items)
+    
+  tempdict.update(freq)
   summary.append( tempdict )
 
 pd.set_option("display.precision", 0)
