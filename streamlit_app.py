@@ -39,16 +39,18 @@ if submit:
   doc_ref.update( {row['MatchId']: team_selected } )
   st.write('Your response has been submitted, good luck!')
 
-choicedict = {}
+choicelist = []
 for player in players:
   tempdoc_ref = db.collection("users").document(player)
-  tempdoc = doc_ref.get()
+  tempdoc = tempdoc_ref.get()
   try:
-    choicedict.update( {player, tempdoc.to_dict()[row['MatchId']]})
+    val = tempdoc.to_dict()[row['MatchId']]   
+    choicelist.append({"Player": player, "Choice": val })    
   except:
     print("ignore error")
-                                                        
-if len(choicedict) > 0:
-  st.write(choicedict)
+              
+choices = pd.DataFrame(choicelist)
+if len(choices.shape[0]) > 0:
+  st.write(choices)
                                                  
   
