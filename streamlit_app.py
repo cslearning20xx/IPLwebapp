@@ -40,12 +40,12 @@ if submit:
   doc_ref.set( {row['MatchId'], team_selected } )
   st.write('Your response has been submitted, good luck!')
 
-choicedict = {}
-for player in players:
-  tempdoc_ref = db.collection("users").document(player)
-  tempdoc = doc_ref.get()
-  choicedict.update(tempdoc.id, tempdoc.to_dict()[row['MatchId']])
+# choicedict = {}
+# for player in players:
+#   tempdoc_ref = db.collection("users").document(player)
+#   tempdoc = doc_ref.get()
+#   choicedict.update(tempdoc.id, tempdoc.to_dict()[row['MatchId']])
                                                         
-st.write(choicedict)
+# st.write(choicedict)
                                                  
   
