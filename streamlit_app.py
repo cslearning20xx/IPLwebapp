@@ -29,7 +29,7 @@ players = ( 'Bot', 'Chetan', 'Rajat', 'Sethu', 'Shivam', 'Havish', 'Utsav', 'Ksh
 user = st.selectbox( 'Please chose your login name', players )
 
 st.write('Welcome ', user, '  !' )
-st.write( "Please submit you response for ", row['Team1], " v/s", row['Team2'], " at ", row['Time'])
+st.write( "Please submit you response for ", row['Team1'], " v/s", row['Team2'], " at ", row['Time'])
 
 team_selected = st.selectbox( 'Please chose your team', ( 'None', row['Team1'], row['Team2'] ))                                                  
 
