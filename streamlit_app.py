@@ -37,7 +37,7 @@ doc_ref = db.collection("users").document(user)
 submit = st.button('Submit Response')
 
 if submit: 
-  doc_ref.set( {row['MatchId']: team_selected } )
+  doc_ref.update( {row['MatchId']: team_selected } )
   st.write('Your response has been submitted, good luck!')
 
 # choicedict = {}
