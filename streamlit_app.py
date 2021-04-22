@@ -12,6 +12,9 @@ from google.cloud import firestore
 # Authenticate to Firestore with the JSON account key.
 db = firestore.Client.from_service_account_json("firestorekey.json")
 
+option = st.selectbox( 'Please chose your login name', ( 'Chetan', 'Rajat'))
+st.write('Welcome ', option, '  !')
+
 # Create a reference to the Google post.
 doc_ref = db.collection("users").document("Chetan")
 
